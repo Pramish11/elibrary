@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   leading: CircleAvatar(
                     backgroundColor: Colors.black,
                     radius: 30,
-                    child: Image.asset(book.urlImage),
+                    child: Image.network(book.urlImage),
                   ),
                   title: Text(book.title),
                   onTap: () => Navigator.push(
@@ -142,7 +142,7 @@ class BookPage extends StatelessWidget {
         ),
         body: Builder(builder: (context) {
           return Image.network(
-            book.urlImage,
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzWGaYxCekwiV2nTxFEZQr4M87wcyAUFqze64BFgUY&s",
             width: double.infinity,
             height: 300,
             fit: BoxFit.cover,
