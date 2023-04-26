@@ -1,3 +1,4 @@
+import 'package:elibrary/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   @override
   Widget build(BuildContext context) {
-    String email='',pass='';
+    String email = '', pass = '';
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -68,8 +69,8 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 30,
                           ),
                           TextField(
-                            onChanged: (value){
-                              email=value;
+                            onChanged: (value) {
+                              email = value;
                             },
                             style: TextStyle(color: Colors.white),
                             decoration: InputDecoration(
@@ -95,8 +96,8 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 30,
                           ),
                           TextField(
-                            onChanged: (value){
-                              pass=value;
+                            onChanged: (value) {
+                              pass = value;
                             },
                             style: TextStyle(color: Colors.white),
                             obscureText: true,
@@ -137,18 +138,30 @@ class _MyRegisterState extends State<MyRegister> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () async{ print("press");
+                                    onPressed: () async {
+                                      print("press");
                                       try {
-                                        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                        final credential = await FirebaseAuth
+                                            .instance
+                                            .createUserWithEmailAndPassword(
                                           email: email,
                                           password: pass,
                                         );
-                                        Navigator.pushNamed(context, 'homepage');
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => HomePage()),
+                                          (Route<dynamic> route) => false,
+                                        );
+                                        ;
                                       } on FirebaseAuthException catch (e) {
                                         if (e.code == 'weak-password') {
-                                          print('The password provided is too weak.');
-                                        } else if (e.code == 'email-already-in-use') {
-                                          print('The account already exists for that email.');
+                                          print(
+                                              'The password provided is too weak.');
+                                        } else if (e.code ==
+                                            'email-already-in-use') {
+                                          print(
+                                              'The account already exists for that email.');
                                         }
                                       } catch (e) {
                                         print(e);
@@ -157,7 +170,7 @@ class _MyRegisterState extends State<MyRegister> {
                                     icon: Icon(
                                       Icons.arrow_forward,
                                     )),
-                              )
+                              ),
                             ],
                           ),
                           SizedBox(
